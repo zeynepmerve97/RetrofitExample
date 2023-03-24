@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ApiExample</string>
+    <string name="description">DESCRIPTION:</string>
+    <string name="category">CATEGORY:</string>
+    <string name="price">PRICE:</string>
+    <string name="title">TITLE:</string>
+    <string name="id">ID:</string>
+</resources>
