@@ -22,13 +22,20 @@ class MainActivity : AppCompatActivity() {
     var productAdapter: ProductAdapter? = null
     lateinit var rv: RecyclerView
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        init()
 
+
+
+    }
+
+
+
+
+    private fun init(){
         productService.getProduct().enqueue(object : Callback<ProductList>{
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
 
@@ -36,10 +43,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("TAG", "SERVİCE SUCCESS")
                     response.body()?.let {
 
-                        rv = binding.rvProduct
-                        productAdapter = ProductAdapter(it,this@MainActivity)
-                        rv.adapter= productAdapter
-                        rv.layoutManager=  LinearLayoutManager(this@MainActivity)
+                        adapterLogic(it)
                     }
                 } else {
                     Log.d("TAG","service failed")
@@ -51,6 +55,14 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+    }
+
+    private fun adapterLogic(productList: ProductList){
+        rv = binding.rvProduct
+        productAdapter = ProductAdapter(productList,this@MainActivity)
+        rv.adapter= productAdapter
+        rv.layoutManager=  LinearLayoutManager(this@MainActivity)
 
     }
 
