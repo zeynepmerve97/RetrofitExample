@@ -1,4 +1,4 @@
-package com.example.movie_list_mvvm.utils
+package com.example.apiexample.utils
 
 
 import android.view.LayoutInflater
