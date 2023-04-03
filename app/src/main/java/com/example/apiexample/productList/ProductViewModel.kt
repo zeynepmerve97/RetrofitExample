@@ -8,12 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.apiexample.network.ProductApi.productService
 import com.example.apiexample.network.State
 import com.example.apiexample.network.response.ProductList
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class ProductViewModel : ViewModel() {
+@HiltViewModel
+class ProductViewModel @Inject constructor(
+    private val repository: ProductListRepository
+) : ViewModel() {
 
     private val productList = MutableLiveData<ProductList>()
     val productListData: LiveData<ProductList> get() = productList
@@ -23,7 +28,8 @@ class ProductViewModel : ViewModel() {
 
     val TAG = ProductViewModel::class.simpleName
 
-    private lateinit var repository: ProductListImpl
+
+
 
     /*init {
         getProducts()
@@ -34,9 +40,6 @@ class ProductViewModel : ViewModel() {
     //400 - Error
     //500 - Server Error
 
-    fun setRepo(repositoryImpl: ProductListImpl) {
-        repository = repositoryImpl
-    }
 
 
     fun getProducts() {

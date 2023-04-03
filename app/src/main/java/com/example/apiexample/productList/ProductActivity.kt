@@ -15,11 +15,12 @@ import com.example.apiexample.network.response.ProductList
 import com.example.apiexample.utils.dataBinding
 import com.example.apiexample.utils.hideLoading
 import com.example.apiexample.utils.showLoading
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
 
-
+@AndroidEntryPoint
 class ProductActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by dataBinding(R.layout.activity_main)
@@ -32,15 +33,10 @@ class ProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        init()
         sendRequest()
         observeViewModels()
 
 
-    }
-
-    private fun init() {
-        viewModel.setRepo(ProductListImpl())
     }
 
 
@@ -79,32 +75,6 @@ class ProductActivity : AppCompatActivity() {
 
     }
 
-
-
-
-    /*private fun init(){
-        productService.getProduct().enqueue(object : Callback<ProductList>{
-            override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
-
-                if (response.isSuccessful){
-                    Log.d("TAG", "SERVİCE SUCCESS")
-                    response.body()?.let {
-
-                        adapterLogic(it)
-                    }
-                } else {
-                    Log.d("TAG","service failed")
-                }
-            }
-
-            override fun onFailure(call: Call<ProductList>, t: Throwable) {
-                Log.d("TAG","service failed ${t.message}")
-            }
-
-        })
-
-    }*/
-
     private fun adapterLogic(productList: ProductList){
         rv = binding.rvProduct
         productAdapter = ProductAdapter(productList,this@ProductActivity)
@@ -112,10 +82,6 @@ class ProductActivity : AppCompatActivity() {
         rv.layoutManager=  LinearLayoutManager(this@ProductActivity)
 
     }
-
-
-
-
 
 }
 
